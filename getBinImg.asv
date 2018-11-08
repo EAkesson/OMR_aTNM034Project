@@ -1,0 +1,11 @@
+function binIm = getBinImg(img, inverted)
+
+threshold = 
+if(inverted)
+    binIm = img < threshold
+else
+   binIm = img > threshold
+end
+
+
+return binIm
