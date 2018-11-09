@@ -8,6 +8,7 @@ function strout = tnm034(Im)
 % The string must follow the pre-defined format, explained below.
 %
 % Your program code…
+Im = rgb2gray(Im);
 detectNote(Im);
 
 strout = '';

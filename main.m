@@ -1,5 +1,6 @@
 %Read file
 img = imread('Images_Training/notes.jpg');
-img = rgb2gray(img);
+%img = imread('Images_Training/easy/im9s.jpg');
+
 %Do tnm034...
-tnm034(img)
+tnm034(img);

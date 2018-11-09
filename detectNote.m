@@ -1,44 +1,65 @@
 function detectNote(img)
-
+%% Fix image
 %imshow(img);
 %figure;
-%BW = edge(img, 'sobel', 'horizontal');
-%BW = edge(img, 'roberts');
-%imshow(BW)
-%[H, teta, rho] = hough(BW);
-
-%imshow(imadjust(rescale(H)),'XData',T,'YData',R,...'InitialMagnification','fit');
-
-%BW = edge(img,'sobel', 'horizontal');
 binImg = getBinImg(img, 1);
-BW = edge(binImg,'sobel', 'vertical');
-%BW = edge(img, 'roberts');
-imshow(BW)
+imshow(binImg)
+
+%% Find notes by circular hough (Good)
+
+% [centers,radii, metric] = imfindcircles(binImg, [4, 7], 'ObjectPolarity','bright', 'Method','TwoStage', 'EdgeThreshold',0.7); %shloud vary on staff widht
+[centers,radii, metric] = imfindcircles(binImg, [5, 7], 'ObjectPolarity','bright', 'Method','TwoStage', 'EdgeThreshold',0.5); %shloud vary on staff widht
+
+% center5 = centers(1:50, :)
+% radii5 = radii(1:50)
+viscircles(centers, radii,'EdgeColor','b');
 figure
+%Emma och jag avlutade med att prata om att vi inte hade tid och att realtioner tar tid...
 
-%-----------------------------------
-% Create the Hough transform using the binary image.
-[H,T,R] = hough(BW);
-imshow(H,[],'XData',T,'YData',R,...
-            'InitialMagnification','fit');
-xlabel('\theta'), ylabel('\rho');
-axis on, axis normal, hold on;
 
-%------------------------------
-P  = houghpeaks(H,80,'threshold',(0.2*max(H(:))));
-x = T(P(:,2)); y = R(P(:,1));
-plot(x,y,'s','color','white');
-%----------------------
+%% Find notes by linear hough (noot good)
+%{
+    % BW = edge(binImg,'sobel', 'vertical');
+    %BW = edge(img, 'roberts');
+    %-----------------------------------
+    % Create the Hough transform using the binary image.
+    [H,T,R] = hough(BW);
+    imshow(H,[],'XData',T,'YData',R,...
+                'InitialMagnification','fit');
+    xlabel('\theta'), ylabel('\rho');
+    axis on, axis normal, hold on;
 
-lines = houghlines(BW,T,R,P,'FillGap',2,'MinLength',5);
+    %------------------------------
+    P  = houghpeaks(H,80,'threshold',(0.2*max(H(:))));
+    x = T(P(:,2)); y = R(P(:,1));
+    plot(x,y,'s','color','white');
+    %----------------------
 
-figure, imshow(img), hold on
-for k = 1:length(lines)
-   xy = [lines(k).point1; lines(k).point2];
-   plot(xy(:,1),xy(:,2),'LineWidth',2,'Color','green');
+    lines = houghlines(BW,T,R,P,'FillGap',2,'MinLength',5);
 
-   % Plot beginnings and ends of lines
-   plot(xy(1,1),xy(1,2),'x','LineWidth',2,'Color','yellow');
-   plot(xy(2,1),xy(2,2),'x','LineWidth',2,'Color','red');
-end
+    figure, imshow(img), hold on
+    for k = 1:length(lines)
+       xy = [lines(k).point1; lines(k).point2];
+       plot(xy(:,1),xy(:,2),'LineWidth',2,'Color','green');
 
+       % Plot beginnings and ends of lines
+       plot(xy(1,1),xy(1,2),'x','LineWidth',2,'Color','yellow');
+       plot(xy(2,1),xy(2,2),'x','LineWidth',2,'Color','red');
+    end
+%}
+
+%% Test labeling
+labeldimg = bwlabel(binImg);
+labeldimg = uint8(labeldimg * 1.1);
+rgblabelimg = ind2rgb(labeldimg, colormap('hsv'));
+% disp(labeldimg == 0);
+% fmask =  etempl <= th; %Mask    % this is the mask use C and R to generate it
+% tempImage(~fmask) = 0; %Set everything outside the mask to zero (black)
+mask = labeldimg == 0;
+rgbmask = cat(3, mask, mask, mask);
+disp(max(max(labeldimg)));
+disp(min(min(labeldimg)));
+rgblabelimg(rgbmask) = 0;
+
+
+imshow(rgblabelimg);
