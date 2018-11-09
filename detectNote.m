@@ -8,13 +8,12 @@ imshow(binImg)
 %% Find notes by circular hough (Good)
 
 % [centers,radii, metric] = imfindcircles(binImg, [4, 7], 'ObjectPolarity','bright', 'Method','TwoStage', 'EdgeThreshold',0.7); %shloud vary on staff widht
-[centers,radii, metric] = imfindcircles(binImg, [5, 7], 'ObjectPolarity','bright', 'Method','TwoStage', 'EdgeThreshold',0.5); %shloud vary on staff widht
+[centers,radii, metric] = imfindcircles(binImg, [3, 5], 'ObjectPolarity','bright', 'Method','TwoStage', 'EdgeThreshold',0.7); %shloud vary on staff widht
 
 % center5 = centers(1:50, :)
 % radii5 = radii(1:50)
 viscircles(centers, radii,'EdgeColor','b');
 figure
-%Emma och jag avlutade med att prata om att vi inte hade tid och att realtioner tar tid...
 
 
 %% Find notes by linear hough (noot good)
