@@ -2,6 +2,7 @@ function detectNote(img)
 %% Fix image
 %imshow(img);
 %figure;
+img = removeGClef(img);
 binImg = getBinImg(img, 1);
 imshow(binImg)
 
@@ -13,7 +14,13 @@ imshow(binImg)
 % center5 = centers(1:50, :)
 % radii5 = radii(1:50)
 viscircles(centers, radii,'EdgeColor','b');
+
+[sortCenters, i] = sortrows(centers, 1);
+disp(size(sortCenters))
 figure
+num = 1;
+smallimg = binImg( sortCenters(num,2) - 50 : sortCenters(num,2) + 10, sortCenters(num,1) - 10 : sortCenters(num,1) + 20);
+imshow(smallimg)
 
 
 %% Find notes by linear hough (noot good)
@@ -48,17 +55,16 @@ figure
 %}
 
 %% Test labeling
-labeldimg = bwlabel(binImg);
-labeldimg = uint8(labeldimg * 1.1);
-rgblabelimg = ind2rgb(labeldimg, colormap('hsv'));
-% disp(labeldimg == 0);
-% fmask =  etempl <= th; %Mask    % this is the mask use C and R to generate it
-% tempImage(~fmask) = 0; %Set everything outside the mask to zero (black)
-mask = labeldimg == 0;
-rgbmask = cat(3, mask, mask, mask);
-disp(max(max(labeldimg)));
-disp(min(min(labeldimg)));
-rgblabelimg(rgbmask) = 0;
-
-
-imshow(rgblabelimg);
+% figure
+% labeldimg = bwlabel(binImg);
+% labeldimg = uint8(labeldimg * 10);
+% rgblabelimg = ind2rgb(labeldimg, colormap('hsv'));
+% % disp(labeldimg == 0);
+% % fmask =  etempl <= th; %Mask    % this is the mask use C and R to generate it
+% % tempImage(~fmask) = 0; %Set everything outside the mask to zero (black)
+% mask = labeldimg == 0;
+% rgbmask = cat(3, mask, mask, mask);
+% %disp(max(max(labeldimg)));
+% %disp(min(min(labeldimg)));
+% rgblabelimg(rgbmask) = 0;
+% imshow(rgblabelimg);
