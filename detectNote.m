@@ -21,6 +21,7 @@ figure
 num = 1;
 smallimg = binImg( sortCenters(num,2) - 50 : sortCenters(num,2) + 10, sortCenters(num,1) - 10 : sortCenters(num,1) + 20);
 imshow(smallimg)
+findNoteHeadCenter(smallimg, 4);
 
 
 %% Find notes by linear hough (noot good)
