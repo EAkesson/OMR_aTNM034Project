@@ -19,7 +19,7 @@ viscircles(centers, radii,'EdgeColor','b');
 disp(size(sortCenters))
 figure
 num = 1;
-smallimg = binImg( sortCenters(num,2) - 50 : sortCenters(num,2) + 10, sortCenters(num,1) - 10 : sortCenters(num,1) + 20);
+smallimg = binImg( 1:size(binImg,1), sortCenters(num,1) - 10 : sortCenters(num,1) + 20);
 imshow(smallimg)
 
 

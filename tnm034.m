@@ -9,9 +9,10 @@ function strout = tnm034(Im)
 %
 % Your program code…
 Im = rgb2gray(Im);
-detectNote(Im);
+%detectNote(Im);
 %template(Im);
 %removeGClef(Im);
+rowProcessing(Im)
 
 strout = '';
 %%%%%%%%%%%%%%%%%%%%%%%%%%
