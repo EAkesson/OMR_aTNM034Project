@@ -16,8 +16,8 @@ function modImage = removeGClef(img)
     modImage = img;
     modImage(clefPos(1):(clefPos(1)+size(templateImg,1)), clefPos(2):(clefPos(2)+size(templateImg,2))) = 255;
     
-    %imshow(img)
-    %figure
-    %imshow(modImage);
+%    imshow(img)
+%    figure
+%    imshow(modImage);
     
     
