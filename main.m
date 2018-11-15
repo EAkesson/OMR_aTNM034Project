@@ -1,6 +1,6 @@
 %Read file
-img = imread('Images_Training/notesRow.jpg');
-% img = imread('Images_Training/easy/oneRownotes.png');
+img = imread('Images_Training/notesRow1.jpg');
+%img = imread('Images_Training/easy/oneRownotes.png');
 
 
 %Do tnm034...
