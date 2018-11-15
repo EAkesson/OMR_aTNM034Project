@@ -7,12 +7,10 @@ function strout = tnm034(Im)
 % strout: The resulting character string of the detected notes.
 % The string must follow the pre-defined format, explained below.
 %
+strout = '';
 % Your program code…
 Im = rgb2gray(Im);
-%detectNote(Im);
-%template(Im);
-%removeGClef(Im);
-rowProcessing(Im)
+rowProcessing(Im);
 
-strout = '';
+strout =  'Something that is returned from a function';
 %%%%%%%%%%%%%%%%%%%%%%%%%%
