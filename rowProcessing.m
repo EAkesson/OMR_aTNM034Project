@@ -1,4 +1,4 @@
-function tones = rowProcessing(img)
+function rowString = rowProcessing(img)
 % rowProcessing(img)
 % This function process a row of notes and return them as a string of tones
 % according to document https://liuonline.sharepoint.com/sites/TNM034/TNM034_2018HT_OH/CourseDocuments/Forms/AllItems.aspx?viewpath=%2Fsites%2FTNM034%2FTNM034_2018HT_OH%2FCourseDocuments%2FForms%2FAllItems%2Easpx&id=%2Fsites%2FTNM034%2FTNM034_2018HT_OH%2FCourseDocuments%2FTNM034_Course_Information_2018%2Epdf&parent=%2Fsites%2FTNM034%2FTNM034_2018HT_OH%2FCourseDocuments
@@ -8,8 +8,9 @@ function tones = rowProcessing(img)
 %   tones = the string with notes according to the img
 %
 imshow(img)
-spaceRadi = 4;
-tones = '';
+spaceRadi = 5;
+firstLineYPos = 87;
+rowString = '';
 
 % remove G-clef
 img = removeGClef(img);
@@ -27,8 +28,16 @@ for i = 1:length(centers)
   imshow(smallImg);  
 
   newCenter = findNoteHeadCenter(smallImg, spaceRadi);
+  
+  % get note rythm (returns 0, 4 or 8)
   rythm = getNoteRythm(smallImg, newCenter, spaceRadi);
-  tones = strcat(tones, rythm);
+  
+  % get note name (returns note name)
+  if(rythm ~= 0)
+      noteName = getNoteName(centers(i,2), rythm, firstLineYPos, spaceRadi);
+      rowString = strcat(rowString, noteName);
+  end
+  
 %   disp(centers(i, :));
 %   disp(fiftyCent);
 %   if(length(fiftyCent) > 1)
@@ -36,8 +45,8 @@ for i = 1:length(centers)
 %       disp('heeeyyo');
 %   end
 end
-disp('hej')
-disp(tones)
+
+disp(rowString)
 
 % smallimg = binImg( 1:size(binImg,1), sortCenters(num,1) - 10 : sortCenters(num,1) + 20);
 % imshow(smallimg)

@@ -22,8 +22,8 @@ if(max(max(beamImg))==0)
 end
 
 %Go throug all the rows on a few places an evaluate the tone
-leftColumn = beamImg(:, round(noteHeadPos(1)) - spaceRadi*1.5);
-rightColumn = beamImg(:, round(noteHeadPos(1)) + spaceRadi*1.5);
+leftColumn = beamImg(:, round(noteHeadPos(1) - spaceRadi*1.5));
+rightColumn = beamImg(:, round(noteHeadPos(1) + spaceRadi*1.5));
 left = numel(findpeaks(double(255 * leftColumn)));
 right = numel(findpeaks(double(255 * rightColumn)));
 
