@@ -25,5 +25,5 @@ function flagAndBeamImg = flagsAndBeamsDetection(smallImg, noteHeadPos, spaceRad
   % Perform opening operation 
   flagAndBeamImg = imopen(getBinImg(smallImg, 1),se);
   
-  figure
-  imshow(flagAndBeamImg);
+  %figure
+  %imshow(flagAndBeamImg);

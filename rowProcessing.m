@@ -16,17 +16,19 @@ img = removeGClef(img);
 
 % Find noteheads and get thier pos
 [centers, radius] = findNoteheadsByHough(img, [spaceRadi-1, spaceRadi+1], 0.7);
+%centers = findNoteHeadCenter(img, spaceRadi);
+%radius = ones(size(centers, 1), 1)*3;
 viscircles(centers, radius,'EdgeColor','b');
 
 for i = 1:length(centers)
   centers(i,1) = round(centers(i,1));%To get rid of warning about intvalues
-  smallImg = img( 1:size(img,1), centers(i,1) - (spaceRadi*2) : centers(i,1) + (spaceRadi*3));
+  smallImg = img( 1:size(img,1), centers(i,1) - (spaceRadi*3) : centers(i,1) + (spaceRadi*3));
   figure
   imshow(smallImg);  
 
   newCenter = findNoteHeadCenter(smallImg, spaceRadi);
   rythm = getNoteRythm(smallImg, newCenter, spaceRadi);
-  disp(rythm)
+  tones = strcat(tones, rythm);
 %   disp(centers(i, :));
 %   disp(fiftyCent);
 %   if(length(fiftyCent) > 1)
@@ -34,6 +36,8 @@ for i = 1:length(centers)
 %       disp('heeeyyo');
 %   end
 end
+disp('hej')
+disp(tones)
 
 % smallimg = binImg( 1:size(binImg,1), sortCenters(num,1) - 10 : sortCenters(num,1) + 20);
 % imshow(smallimg)
