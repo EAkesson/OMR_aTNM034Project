@@ -9,7 +9,8 @@ function rythm = getNoteRythm(smallImg, noteHeadPos, spaceRadi)
 %  spaceRadi = the height of spaces/radius of the noteheads
 %
 
-if(smallImg(round(noteHeadPos(2)), round(noteHeadPos(1))) == 255)
+%If the notehead has a hole inside of it (whole or halfnote)
+if(smallImg(round(noteHeadPos(2)), round(noteHeadPos(1))) == 255) 
    rythm = '0';
    return;
 end

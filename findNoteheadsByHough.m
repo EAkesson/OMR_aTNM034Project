@@ -11,12 +11,15 @@ function [centers, radius] = findNoteheadsByHough(img, r, threshold)
 %
 
 % Separate note head from rest of object
-binImg = separateNoteHead(img, r(1)+1);
+binImg = separateNoteHead(img, round(r(1)+1));
+
+%figure
+%imshow(binImg)
+
 
 %binImg = getBinImg(img, 1);
 %imshow(binImg)
 [centers,rad, metric] = imfindcircles(binImg, r, 'ObjectPolarity','bright', 'Method','TwoStage', 'EdgeThreshold', threshold);
 [centers, i] = sortrows(centers, 1);
-%disp(rad)
-%disp(i)
+
 radius(:) = rad(i);

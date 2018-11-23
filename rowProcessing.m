@@ -16,34 +16,46 @@ rowString = '';
 img = removeGClef(img);
 
 % Find noteheads and get thier pos
-[centers, radius] = findNoteheadsByHough(img, [spaceRadi-1, spaceRadi+1], 0.7);
+[centers, radius] = findNoteheadsByHough(img, [spaceRadi-1, spaceRadi+1], 0.6);
 %centers = findNoteHeadCenter(img, spaceRadi);
 %radius = ones(size(centers, 1), 1)*3;
+%disp(size(centers));
 viscircles(centers, radius,'EdgeColor','b');
 
+jump = 0;
 for i = 1:length(centers)
-  centers(i,1) = round(centers(i,1));%To get rid of warning about intvalues
-  smallImg = img( 1:size(img,1), centers(i,1) - (spaceRadi*3) : centers(i,1) + (spaceRadi*3));
-  figure
-  imshow(smallImg);  
+  if(jump == 0)
+      centers(i,1) = round(centers(i,1));%To get rid of warning about intvalues
+      smallImg = img( 1:size(img,1), centers(i,1) - (spaceRadi*3) : centers(i,1) + (spaceRadi*3));
+      figure
+      imshow(smallImg);  
 
-  newCenter = findNoteHeadCenter(smallImg, spaceRadi);
-  
-  % get note rythm (returns 0, 4 or 8)
-  rythm = getNoteRythm(smallImg, newCenter, spaceRadi);
-  
-  % get note name (returns note name)
-  if(rythm ~= 0)
-      noteName = getNoteName(centers(i,2), rythm, firstLineYPos, spaceRadi);
-      rowString = strcat(rowString, noteName);
+      %newCenter = findNoteHeadCenter(smallImg, spaceRadi);
+      [newCenter, junk] = findNoteheadsByHough(smallImg, [spaceRadi-1, spaceRadi+1], 0.6);
+
+      % get note rythm (returns 0, 4 or 8)
+      rythm = getNoteRythm(smallImg, newCenter(1,:), spaceRadi);
+
+      % get note name (returns note name)
+      if(1)%rythm ~= 0)
+          noteName = getNoteName(newCenter(:,2), rythm, firstLineYPos, spaceRadi);
+          rowString = strcat(rowString, noteName);
+      end
+      
+      disp(newCenter)
+      if(length(newCenter) > 1)
+      end
+
+    %   disp(centers(i, :));
+    %   disp(fiftyCent);
+    %   if(length(fiftyCent) > 1)
+    %       i =+ 1;
+    %       disp('heeeyyo');
+    %   end
+  else
+      jump = 0;
   end
   
-%   disp(centers(i, :));
-%   disp(fiftyCent);
-%   if(length(fiftyCent) > 1)
-%       i =+ 1;
-%       disp('heeeyyo');
-%   end
 end
 
 disp(rowString)
