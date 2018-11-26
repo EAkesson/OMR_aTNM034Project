@@ -5,6 +5,5 @@ img = imread('Images_Training/easy/oneRownotes.png');
 %img = imread('Images_Training/easy/im10s.jpg');
 
 
-
 %Do tnm034...
 tnm034(img);

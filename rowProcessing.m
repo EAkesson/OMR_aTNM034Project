@@ -16,7 +16,7 @@ rowString = '';
 img = removeGClef(img);
 
 % Find noteheads and get thier pos
-[centers, radius] = findNoteheadsByHough(img, [spaceRadi-1, spaceRadi+1], 0.6);
+[centers, radius] = findNoteheadsByHough(img, [spaceRadi-1, spaceRadi+1], 0.6, 1);
 %centers = findNoteHeadCenter(img, spaceRadi);
 %radius = ones(size(centers, 1), 1)*3;
 %disp(size(centers));
@@ -31,19 +31,19 @@ for i = 1:length(centers)
       imshow(smallImg);  
 
       %newCenter = findNoteHeadCenter(smallImg, spaceRadi);
-      [newCenter, junk] = findNoteheadsByHough(smallImg, [spaceRadi-1, spaceRadi+1], 0.6);
+      [newCenter, junk] = findNoteheadsByHough(smallImg, [spaceRadi-1, spaceRadi+1], 0.6, 0);
 
       % get note rythm (returns 0, 4 or 8)
-      rythm = getNoteRythm(smallImg, newCenter(1,:), spaceRadi);
+      rythm = getNoteRythm(smallImg, newCenter, spaceRadi);
 
       % get note name (returns note name)
       if(1)%rythm ~= 0)
           noteName = getNoteName(newCenter(:,2), rythm, firstLineYPos, spaceRadi);
           rowString = strcat(rowString, noteName);
       end
-      
-      disp(newCenter)
-      if(length(newCenter) > 1)
+          
+      if(size(newCenter, 1) > 1)
+          jump = size(newCenter, 1) - 1;
       end
 
     %   disp(centers(i, :));
@@ -53,7 +53,7 @@ for i = 1:length(centers)
     %       disp('heeeyyo');
     %   end
   else
-      jump = 0;
+      jump = jump-1;
   end
   
 end

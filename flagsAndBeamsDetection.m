@@ -16,9 +16,12 @@ function flagAndBeamImg = flagsAndBeamsDetection(smallImg, noteHeadPos, spaceRad
   %figure
   %imshow(Ssmallimg)
   
-  noteHeadPos(2) = round(noteHeadPos(2)); %To get rid of warning about intvalues
-  %Remove head
-  smallImg(noteHeadPos(2)-spaceRadi*2:noteHeadPos(2)+spaceRadi*2, 1:size(smallImg,2)) = 255;
+  noteHeadPos(:,2) = round(noteHeadPos(:,2)); %To get rid of warning about intvalues
+  disp(noteHeadPos(:,2))
+  %Remove heads  
+  for EE = 1:size(noteHeadPos, 1)
+    smallImg(noteHeadPos(EE,2)-spaceRadi*2:noteHeadPos(EE,2)+spaceRadi*2, 1:size(smallImg,2)) = 1;
+  end  
   
   %remove barline
   se = strel('line', spaceRadi, 0);

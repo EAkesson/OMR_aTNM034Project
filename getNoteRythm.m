@@ -10,12 +10,15 @@ function rythm = getNoteRythm(smallImg, noteHeadPos, spaceRadi)
 %
 
 %If the notehead has a hole inside of it (whole or halfnote)
-if(smallImg(round(noteHeadPos(2)), round(noteHeadPos(1))) == 255) 
+if(smallImg(round(noteHeadPos(1,2)), round(noteHeadPos(1,1))) == 1) 
    rythm = '0';
    return;
 end
     
 beamImg = flagsAndBeamsDetection(smallImg, noteHeadPos, spaceRadi);
+
+figure
+imshow(beamImg);
 
 if(max(max(beamImg))==0)
    rythm = '4';
@@ -25,8 +28,8 @@ end
 %Go throug all the rows on a few places an evaluate the tone
 leftColumn = beamImg(:, round(noteHeadPos(1) - spaceRadi*1.5));
 rightColumn = beamImg(:, round(noteHeadPos(1) + spaceRadi*1.5));
-left = numel(findpeaks(double(255 * leftColumn)));
-right = numel(findpeaks(double(255 * rightColumn)));
+left = numel(findpeaks(double(1 * leftColumn)));
+right = numel(findpeaks(double(1 * rightColumn)));
 
 numOfBeams = max([left,right]);
 if(numOfBeams==1)
