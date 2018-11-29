@@ -7,6 +7,7 @@ function rowString = rowProcessing(img)
 %   img = the inputimage with notes in a row. 
 %   tones = the string with notes according to the img
 %
+img = rgb2gray(img);
 imshow(img)
 spaceRadi = 5;
 firstLineYPos = 87;

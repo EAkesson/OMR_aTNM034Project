@@ -8,11 +8,11 @@ function strout = tnm034(Im)
 % The string must follow the pre-defined format, explained below.
 %
 Im = im2double(Im);
-
 strout = '';
+
 % Your program code…
-Img = rgb2gray(Im);
-rowProcessing(Img);
+splitImageIntoRows(Im);
+%rowProcessing(Im);
 
 strout =  'Something that is returned from a function';
 %%%%%%%%%%%%%%%%%%%%%%%%%%
