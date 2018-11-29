@@ -1,9 +1,34 @@
-%Read file
+% ----- MAIN SCRIPT ----- %
+clear
 close all
-img = imread('Images_Training/notesRow.jpg');
-img = imread('Images_Training/easy/oneRownotes.png');
-%img = imread('Images_Training/easy/im10s.jpg');
+clc
+
+% Read image from computer
+Im = imread('im8c.jpg');
+
+% ----- PRE PROCESSING ----- %
+
+% Apply uniform lighting to image
+light = uniLight(Im);
 
 
-%Do tnm034...
-tnm034(img);
+% Skew the image to fix perspective
+skew = skewImage(light);
+fixedIm = imwarp(Im, skew);
+
+% Rotate the image to get straight staff lines
+fixedIm = HoughRotate(fixedIm);
+
+% Detect and delete staff lines
+[notes,lines] = StaffLines(fixedIm);
+
+
+new = notes + lines;
+figure
+imshow(new);
+
+
+
+figure
+imshow(fixedIm);
+
