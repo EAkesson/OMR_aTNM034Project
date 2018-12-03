@@ -11,7 +11,9 @@ Im = im2double(Im);
 strout = '';
 
 % Your program code…
+Im = HoughRotate(Im);
 imageRowArray = splitImageIntoRows(Im);
+
 
 %loop through all rowimages
 getStafflineProperties(imageRowArray{1});
