@@ -11,8 +11,14 @@ Im = im2double(Im);
 strout = '';
 
 % Your program code…
-splitImageIntoRows(Im);
-%rowProcessing(Im);
+imageRowArray = splitImageIntoRows(Im);
 
+%loop through all rowimages
+getStafflineProperties(imageRowArray{1});
+    %findStafflineprop
+    %remove stafflines
+    %rowProcessing(Im);
+%end
+%celebrate
 strout =  'Something that is returned from a function';
 %%%%%%%%%%%%%%%%%%%%%%%%%%

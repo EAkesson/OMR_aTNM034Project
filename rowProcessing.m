@@ -9,6 +9,8 @@ function rowString = rowProcessing(img)
 %
 img = rgb2gray(img);
 imshow(img)
+%% OBS DELA LINEHIGHT PÅ 2
+%%
 spaceRadi = 5;
 firstLineYPos = 87;
 rowString = '';
