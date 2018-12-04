@@ -5,7 +5,7 @@ function modImage = removeGClef(img)
 %   img: The img you want to remove the G-clef from
 %
 
-    templateImg = imread('Images_Training/Gklave.jpg');
+    templateImg = imread('Gklave.jpg');
     templateImg = rgb2gray(templateImg);
     templateImg = getBinImg(templateImg, 1);
     
