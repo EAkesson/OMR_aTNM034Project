@@ -17,8 +17,8 @@ end
     
 beamImg = flagsAndBeamsDetection(smallImg, noteHeadPos, spaceRadi);
 
-figure
-imshow(beamImg);
+%figure
+%imshow(beamImg);
 
 if(max(max(beamImg))==0)
    rythm = '4';

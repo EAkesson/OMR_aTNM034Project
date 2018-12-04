@@ -16,10 +16,13 @@ imageRowArray = splitImageIntoRows(Im);
 
 
 %loop through all rowimages
-getStafflineProperties(imageRowArray{1});
-    %findStafflineprop
+    [firstLineYPos, lineHeight] = getStafflineProperties(imageRowArray{1}); %findStafflineprop
+    
     %remove stafflines
-    %rowProcessing(Im);
+    %StaffLines(imageRowArray{1})
+    
+    rowProcessing(imageRowArray{1}, firstLineYPos, lineHeight);
+    
 %end
 %celebrate
 strout =  'Something that is returned from a function';

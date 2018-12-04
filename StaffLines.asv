@@ -3,14 +3,12 @@ function outImg = StaffLines(Im)
 %level = graythresh(rgb2gray(Im));
 %BW = im2bw(rgb2gray(Im),level);
 %BW = imcomplement(BW);
-
 Img = rgb2gray(Im)
 BW = edge(getBinImg(Img, 1), 'canny');
-imshow(BW)
-figure
+imshow(Im)
 
 [H, T, R] = hough(BW);
-P = houghpeaks(H, 100, 'threshold', ceil(0.3*max(H(:))));
+P = houghpeaks(H, 5, 'threshold', ceil(0.3*max(H(:))));
 lines = houghlines(BW, T, R, P, 'FillGap', 5, 'Minlength', 7);
 max_len = 0;
 
@@ -22,11 +20,17 @@ for k = 1:length(lines)
    plot(xy(1,1),xy(1,2),'x','LineWidth',2,'Color','yellow');
    plot(xy(2,1),xy(2,2),'x','LineWidth',2,'Color','red');
 
+   % Determine the endpoints of the longest line segment
+   len = norm(lines(k).point1 - lines(k).point2);
+   if ( len > max_len)
+      max_len = len;
+      xy_long = xy;
+   end
 end
 
 notes = imopen(BW, strel('disk',2));
-lines = imopen(BW, ones(3,1));
 
+lines = imopen(BW, ones(3,1));
 %imshow(notes)
 figure
 %imshow(lines)
