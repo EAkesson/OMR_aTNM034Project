@@ -26,7 +26,7 @@ binImg = separateNoteHead(img, r(1));
 
 figure
 imshow(binImg)
-binImg = bwareafilt(binImg, [pi*(r(1)+0.5)^2 pi*(r(2)-0.5)^2]);
+binImg = bwareafilt(binImg, [pi*(r(1))^2 pi*(r(2)+1)^2]);
 figure
 imshow(binImg)
 

@@ -36,6 +36,7 @@ lineHeight = (peaks(5) - firstLineYPos) * 0.25;
 %img(peaks(5)-1:peaks(5)+1, :) = 1;
 
 %imshow(img)
+%figure
 %imshow(imdilate(getBinImg(rgb2gray(img), 1), strel('sphere',1)))
 %imshow(imclose(getBinImg(rgb2gray(img), 1), strel('sphere',3)))
 
