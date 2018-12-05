@@ -20,18 +20,24 @@ r = round(r);
 disp(r)
 binImg = separateNoteHead(img, r(1));
 
+cc = bwconncomp(binImg); 
+stats = regionprops(cc, 'Area'); 
+largeObjects = find([stats.Area] < pi*r(2)*r(2));
+smallObjects = find([stats.Area] > pi*(r(1)+1)*(r(1)+1)); 
 
-%binImg = binImg - imopen(binImg, ones(r(2)*2,1));
-%binImg = getBinImg(binImg, 0);
+BW2 = ismember(labelmatrix(cc), largeObjects); 
+figure 
+imshow(BW2)
+BW3 = ismember(labelmatrix(cc), smallObjects); 
+figure 
+imshow(BW3)
 
-figure
-imshow(binImg)
-binImg = bwareafilt(binImg, [pi*(r(1)+0.5)^2 pi*(r(2)-0.5)^2]);
-figure
-imshow(binImg)
+intersectedImage=bitand(BW2,BW3);
+figure 
+imshow(intersectedImage)
 
 %Find centers
-[centers, rad, metric] = imfindcircles(binImg, r, 'ObjectPolarity','bright', 'Method', 'TwoStage', 'EdgeThreshold', threshold);
+[centers, rad, metric] = imfindcircles(intersectedImage, r, 'ObjectPolarity','bright', 'Method', 'TwoStage', 'EdgeThreshold', threshold);
 %[centers, rad, metric] = imfindcircles(binImg, r, 'ObjectPolarity','bright', 'EdgeThreshold', threshold);
 
 if(length(centers) == 0)
