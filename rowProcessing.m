@@ -11,7 +11,7 @@ img = rgb2gray(img);
 imshow(img)
 
 spaceRadi = lineHeight/2;
-radiiVariation = 2;
+radiiVariation = 1;
 %firstLineYPos = 87;
 
 rowString = '';

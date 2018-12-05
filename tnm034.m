@@ -19,7 +19,7 @@ imageRowArray = splitImageIntoRows(Im);
     [firstLineYPos, lineHeight] = getStafflineProperties(imageRowArray{1}); %findStafflineprop
     
     %remove stafflines
-    %StaffLines(imageRowArray{1})
+    imageRowArray{1} = StaffLines(imageRowArray{1})
     
     rowProcessing(imageRowArray{1}, firstLineYPos, lineHeight);
     
