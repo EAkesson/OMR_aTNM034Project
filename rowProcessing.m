@@ -7,8 +7,8 @@ function rowString = rowProcessing(img, firstLineYPos, lineHeight)
 %   img = the inputimage with notes in a row. 
 %   tones = the string with notes according to the img
 %
+
 img = rgb2gray(img);
-imshow(img)
 
 spaceRadi = lineHeight/2;
 radiiVariation = 1;
@@ -20,7 +20,7 @@ rowString = '';
 img = removeGClef(img);
 
 % Find noteheads and get thier pos
-[centers, radius] = findNoteheadsByHough(img, [max(spaceRadi-radiiVariation, 1), spaceRadi+radiiVariation], 0.6, 1);
+[centers, radius] = findNoteheadsByHough(img, [max(spaceRadi-radiiVariation, 1), spaceRadi+radiiVariation], 0.5, 1);
 %centers = findNoteHeadCenter(img, spaceRadi);
 %radius = ones(size(centers, 1), 1)*3;
 %disp(size(centers));
@@ -35,7 +35,7 @@ for i = 1:length(centers)
       %imshow(smallImg);  
 
       %newCenter = findNoteHeadCenter(smallImg, spaceRadi);
-      [newCenter, junk] = findNoteheadsByHough(smallImg, [spaceRadi-1, spaceRadi+1], 0.5, 0);
+      %[newCenter, junk] = findNoteheadsByHough(smallImg, [spaceRadi-1, spaceRadi+1], 0.5, 0);
 
       if(length(newCenter) == 0)
         continue

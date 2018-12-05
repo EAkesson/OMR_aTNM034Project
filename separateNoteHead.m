@@ -8,6 +8,7 @@ function noteHeadImg = separateNoteHead(noteImg, r)
 %   Image of note head.
 
 noteImg = getBinImg(noteImg, 1);
+
 % Create a structuring element
 se = strel('disk', r);
 

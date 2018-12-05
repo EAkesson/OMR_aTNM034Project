@@ -14,21 +14,24 @@ notes = imopen(imcomplement(Img), strel('disk',2));
 lines = imopen(imcomplement(Img), ones(3,1));
 linesBW = imopen(BW, ones(3,1));
 
-figure
-imshow(linesBW)
-figure
-imshow(lines)
+%figure
+%imshow(linesBW)
+%figure
+%imshow(lines)
 
 finished = lines;
 finished(finished < 0.3) = 0;
-figure
-imshow(finished);
-figure
-imshow(finished > 0.1);
+
+%figure
+%imshow(finished);
+%figure
+%imshow(finished > 0.1);
+
 Tfinished = [finished, finished, finished];
 Im(Tfinished < 0.1) = 1;
-figure
-imshow(Im);
+
+%figure
+%imshow(Im);
 
 outImg = Im;
 

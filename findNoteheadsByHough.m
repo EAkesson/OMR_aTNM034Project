@@ -14,20 +14,51 @@ function [centers, radius] = findNoteheadsByHough(img, r, threshold, sortHorizon
 %
 
 % Separate note head from rest of object
-figure
-imshow(img)
+
 r = round(r);
 disp(r)
-binImg = separateNoteHead(img, r(1));
+ 
+%remove thin bars etc
+scale = 10;
+img = imresize(img, scale);
+binImg = separateNoteHead(img, scale*r(1));
+
+img = imresize(img, 1/scale);
+binImg = imresize(binImg, 1/scale);
+
+%find objects smaller & larger than noteheads
+cc = bwconncomp(binImg); 
+stats = regionprops(cc, 'Area'); 
+
+%find objects with smaller area than largest notehead
+notTooSmall = find([stats.Area] > pi*(r(1))*(r(1)));
+notTooLarge = find([stats.Area] < pi*(r(2))*(r(2))); 
+
+%all objects larger than TOO SMALL
+BW2 = ismember(labelmatrix(cc), notTooSmall); 
+
+%all objects smaller than TOO LARGE
+BW3 = ismember(labelmatrix(cc), notTooLarge); 
+
+intersectedImage=bitand(BW2,BW3);
 
 figure
-imshow(binImg)
-binImg = bwareafilt(binImg, [pi*(r(1))^2 pi*(r(2)+1)^2]);
+subplot(4,1,1), imshow(binImg), title('after separateNotehead')
+subplot(4,1,2), imshow(BW2), title('large objects')
+subplot(4,1,3), imshow(BW3), title('small objects')
+
+binImg = bwareafilt(binImg, [pi*((r(1)+0.5))^2 pi*((r(2)+0.5))^2]);
+
 figure
-imshow(binImg)
+subplot(3,1,1), imshow(intersectedImage), title("after regionprop filter")
+subplot(3,1,2), imshow(binImg), title("after bwareafilt")
+subplot(3,1,3), imshow(img)
+
+
+
 
 %Find centers
-[centers, rad, metric] = imfindcircles(intersectedImage, r, 'ObjectPolarity','bright', 'Method', 'TwoStage', 'EdgeThreshold', threshold);
+[centers, rad, metric] = imfindcircles(binImg, r, 'ObjectPolarity','bright', 'Method', 'TwoStage', 'EdgeThreshold', threshold);
 %[centers, rad, metric] = imfindcircles(binImg, r, 'ObjectPolarity','bright', 'EdgeThreshold', threshold);
 
 if(length(centers) == 0)
