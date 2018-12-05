@@ -6,13 +6,15 @@ function modImage = removeGClef(img)
 %
 
     templateImg = imread('Images_Training/Gklave.jpg');
+    templateImg = im2double(templateImg);
     templateImg = rgb2gray(templateImg);
     templateImg = getBinImg(templateImg, 1);
-    
+
     binImg = getBinImg(img, 1);
     
     clefPos = template(binImg, templateImg);
 
+    disp("yolo" + clefPos)
     modImage = img;
     modImage(clefPos(1):(clefPos(1)+size(templateImg,1)), clefPos(2):(clefPos(2)+size(templateImg,2))) = 1;
     
