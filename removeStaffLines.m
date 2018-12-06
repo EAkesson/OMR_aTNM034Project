@@ -14,7 +14,7 @@ notes = imopen(imcomplement(Img), strel('disk',2));
 lines = imopen(imcomplement(Img), ones(3,1));
 
 linesBW = imopen(BW, ones(round(noteHeadRadius),1));
-circular = imclose(linesBW, strel('disk', round(noteHeadRadius)));
+circular = imclose(linesBW, ones(1,4));
 
 
 %figure('name', 'lines')
@@ -31,18 +31,20 @@ circular = imclose(linesBW, strel('disk', round(noteHeadRadius)));
 Tfinished = [~linesBW, ~linesBW, ~linesBW];
 iis = Im;
 iis(Tfinished) = 1;
-figure('name', 'sup')
-imshow(iis);
+%figure('name', 'sup')
+%imshow(iis);
+%figure('name', 'supclose')
+%imshow(imcomplement(imclose(imcomplement(iis), strel('disk', round(1)))));
 
-%Tfinished = [~circular, ~circular, ~circular];
-%iss = Im;
-%iss(Tfinished) = 1;
-%figure('name', 'yyu')
-%imshow(iss);
+Tfinished = [~circular, ~circular, ~circular];
+iss = Im;
+iss(Tfinished) = 1;
+figure('name', 'yyu')
+imshow(iss);
+%figure('name', 'yyuclose')
+%imshow(imcomplement(imclose(imcomplement(iss), strel('disk', round(noteHeadRadius-1)))));
 
-outImg = iis;
-
-%outImg = 1;
+outImg = iss;
 
 %%
 %[H, T, R] = hough(BW);
