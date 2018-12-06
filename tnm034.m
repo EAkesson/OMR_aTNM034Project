@@ -12,19 +12,20 @@ strout = '';
 
 % Your program code…
 Im = HoughRotate(Im);
-
 imageRowArray = splitImageIntoRows(Im);
 
 %loop through all rowimages
+index = 1
     
     %findStafflineprop
-    [firstLineYPos, lineHeight] = getStafflineProperties(imageRowArray{1}); 
+    [firstLineYPos, lineHeight] = getStafflineProperties(imageRowArray{index}); 
+    
     
     %remove stafflines
-    imageRowArray{1} = StaffLines(imageRowArray{1})
+    imageRowArray{index} = removeStaffLines(imageRowArray{index}, lineHeight/2);
     
     %get note string from row
-    rowProcessing(imageRowArray{1}, firstLineYPos, lineHeight);
+    %rowProcessing(imageRowArray{index}, firstLineYPos, lineHeight);
     
 %end
 %celebrate
