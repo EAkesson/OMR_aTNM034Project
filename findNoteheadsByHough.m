@@ -14,17 +14,25 @@ function [centers, radius] = findNoteheadsByHough(img, r, threshold, sortHorizon
 %
 
 % Separate note head from rest of object
-
+figure
+imshow(img)
 r = round(r);
 disp(r)
- 
+
 %remove thin bars etc
 scale = 10;
 img = imresize(img, scale);
 binImg = separateNoteHead(img, scale*r(1));
 
+figure ('name', 'before close')
+imshow(binImg)
+
 img = imresize(img, 1/scale);
 binImg = imresize(binImg, 1/scale);
+
+binImg = (imclose(binImg, strel('disk', 1))); 
+figure('name', 'closed')
+imshow(binImg)
 
 %find objects smaller & larger than noteheads
 cc = bwconncomp(binImg); 
