@@ -29,7 +29,9 @@ img = removeGClef(img);
 viscircles(centers, radius,'EdgeColor','b');
 
 jump = 0;
+newCenter=[]
 for i = 1:length(centers)
+    disp('huhuhus')
   if(jump == 0)
       centers(i,1) = round(centers(i,1));%To get rid of warning about intvalues
       smallImg = img( 1:size(img,1), centers(i,1) - (spaceRadi*3) : centers(i,1) + (spaceRadi*3));
@@ -38,6 +40,7 @@ for i = 1:length(centers)
 
       %newCenter = findNoteHeadCenter(smallImg, spaceRadi);
       %[newCenter, junk] = findNoteheadsByHough(smallImg, [spaceRadi-1, spaceRadi+1], 0.5, 0);
+      %[newCenter, junk] = findNoteheadsByHough(smallImg, [max(spaceRadi-radiiVariation, 1), spaceRadi+radiiVariation], 0.3, 1);
 
       if(length(newCenter) == 0)
         continue

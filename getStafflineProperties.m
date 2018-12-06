@@ -1,6 +1,6 @@
 function [firstLineYPos, lineHeight] = getStafflineProperties(img)
 
-sizeOfImgRange = 10; %pixels
+sizeOfImgRange = 20; %pixels
 im = rgb2gray(img);
 binImg = getBinImg(im, 1);
 vertProj = sum(binImg, 1); %vertical proj
@@ -16,7 +16,7 @@ vertProj = sum(binImg, 1); %vertical proj
 %
 %morpholoogy do this
 imgRange = peaks(length(peaks))-sizeOfImgRange : peaks(length(peaks));
-%imshow(binImg);
+imshow(binImg(:, imgRange));
 
 horzProj = sum(binImg(:, imgRange), 2); %horisontal proj
 %disp(max(horzProj));
@@ -24,10 +24,10 @@ horzProj = sum(binImg(:, imgRange), 2); %horisontal proj
 
 %figure
 %plot(horzProj,1:size(binImg(:, peaks(length(peaks))-10:peaks(length(peaks))),1))
-%figure
+figure
 
-firstLineYPos = peaks(1);
-lineHeight = (peaks(5) - firstLineYPos) * 0.25;
+firstLineYPos = peaks(length(peaks)-4);
+lineHeight = (peaks(length(peaks)) - firstLineYPos) * 0.25;
 
 
 

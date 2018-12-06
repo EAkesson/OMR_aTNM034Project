@@ -19,7 +19,10 @@ function noteName = getNoteName(centerYPos, rythm, firstLineYPos, spaceRadi)
     
         % Use note head radius to calculate index. 
         noteIndex = firstLineArrayIndex + round(distanceFromFirstLine/5.5);
-    
+        if(noteIndex < 1 || noteIndex > length(noteNameArray))
+            noteName = strcat(noteName,'E9');
+            return
+        end
         % Return name from calculated index position.
         noteName = strcat(noteName,noteNameArray(noteIndex));
     end

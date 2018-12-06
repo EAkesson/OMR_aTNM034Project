@@ -24,13 +24,23 @@ scale = 10;
 img = imresize(img, scale);
 binImg = separateNoteHead(img, scale*r(1));
 
+
 figure ('name', 'before close')
 imshow(binImg)
 
 img = imresize(img, 1/scale);
 binImg = imresize(binImg, 1/scale);
 
-binImg = (imclose(binImg, strel('disk', 1))); 
+%find objects smaller than noteheads
+cc = bwconncomp(binImg); 
+stats = regionprops(cc, 'Area');
+%find objects with smaller area than smallest notehead
+notTooSmall = find([stats.Area] > pi*(r(1))*(r(1)));
+%all objects larger than TOO SMALL
+BW2 = ismember(labelmatrix(cc), notTooSmall); 
+
+
+binImg = (imclose(binImg, strel('disk', round(r(1))))); 
 figure('name', 'closed')
 imshow(binImg)
 
@@ -39,11 +49,8 @@ cc = bwconncomp(binImg);
 stats = regionprops(cc, 'Area'); 
 
 %find objects with smaller area than largest notehead
-notTooSmall = find([stats.Area] > pi*(r(1))*(r(1)));
-notTooLarge = find([stats.Area] < pi*(r(2))*(r(2))); 
+notTooLarge = find([stats.Area] < pi*(r(2)+0.5)*(r(2)+0.5)); 
 
-%all objects larger than TOO SMALL
-BW2 = ismember(labelmatrix(cc), notTooSmall); 
 
 %all objects smaller than TOO LARGE
 BW3 = ismember(labelmatrix(cc), notTooLarge); 
@@ -58,8 +65,8 @@ subplot(4,1,3), imshow(BW3), title('small objects')
 binImg = bwareafilt(binImg, [pi*((r(1)+0.5))^2 pi*((r(2)+0.5))^2]);
 
 figure
-subplot(3,1,1), imshow(intersectedImage), title("after regionprop filter")
-subplot(3,1,2), imshow(binImg), title("after bwareafilt")
+subplot(3,1,1), imshow(intersectedImage), title('after regionprop filter')
+subplot(3,1,2), imshow(binImg), title('after bwareafilt')
 subplot(3,1,3), imshow(img)
 
 

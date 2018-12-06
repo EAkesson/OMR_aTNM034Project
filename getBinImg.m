@@ -8,7 +8,7 @@ function binIm = getBinImg(img, inverted)
 I = imgaussfilt(img,3); 
 
 threshold = graythresh(I) * 1;
-disp(threshold)
+%disp(threshold)
 if(inverted)
     binIm = img < threshold;
 else

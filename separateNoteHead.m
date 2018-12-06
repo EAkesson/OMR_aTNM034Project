@@ -5,13 +5,26 @@ function noteHeadImg = separateNoteHead(noteImg, r)
 %   note = small image of note
 %   r = note head radius
 % Output: 
-%   Image of note head.
+%   Image of note head. (Binary and inverted)
 
-noteImg = getBinImg(noteImg, 1);
+binNoteImg = getBinImg(noteImg, 1);
 
 % Create a structuring element
-se = strel('disk', r);
+%se = strel('disk', r);
 
 % Perform opening operation 
-noteHeadImg = imopen(noteImg, se);
+%noteHeadImg = imopen(noteImg, se);
+figure('name', 'this')
+imshow(binNoteImg)
+
+figure('name', 'hiy')
+lines = imclose(binNoteImg, ones(round(r*2), 5));
+imshow(lines)
+figure
+lines = imopen(lines, ones(round(r*5), 5));
+imshow(lines)
+binNoteImg(lines) = 0;
+figure('name', 'hsdfdsfiy')
+imshow(binNoteImg)
+noteHeadImg =  binNoteImg;
 

@@ -16,7 +16,7 @@ smoothhorzProjMin = movmean(horzProjMin, 50); %Smooth the graph to easier find r
 
 
 posToCut(length(posToCut)+1, 1) = length(smoothhorzProjMin); %insert end value at the end
-disp(size(posToCut))
+%disp(size(posToCut))
 posToCut = [1; posToCut]; %insert start value at the start
 
 imgArray{1} = 1;

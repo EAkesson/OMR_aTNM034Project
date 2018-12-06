@@ -12,22 +12,24 @@ strout = '';
 
 % Your program code…
 Im = imsharpen(Im, 'Radius', 1.5, 'Amount', 1.1);
-figure
-imshow(Im)
 Im = HoughRotate(Im);
+
 imageRowArray = splitImageIntoRows(Im);
 
 %loop through all rowimages
-    rowIndex = 1; 
+rowIndex = 1; 
+%for rowIndex=1:length(imageRowArray)    
     %findStafflineprop
     [firstLineYPos, lineHeight] = getStafflineProperties(imageRowArray{rowIndex}); 
-    
+    disp(lineHeight)
     %remove stafflines
     imageRowArray{rowIndex} = removeStaffLines(imageRowArray{rowIndex}, lineHeight/2);
     
     %get note string from row
     rowProcessing(imageRowArray{rowIndex}, firstLineYPos, lineHeight);
     
+    
+    %add rowchnge n
 %end
 %celebrate
 strout =  'Something that is returned from a function';
