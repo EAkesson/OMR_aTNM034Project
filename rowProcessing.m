@@ -20,7 +20,7 @@ rowString = '';
 img = removeGClef(img);
 
 % Find noteheads and get thier pos
-[centers, radius] = findNoteheadsByHough(img, [max(spaceRadi-radiiVariation, 1), spaceRadi+radiiVariation], 0.5, 1);
+[centers, radius] = findNoteheadsByHough(img, [max(spaceRadi-radiiVariation, 1), spaceRadi+radiiVariation], 0.3, 1);
 %centers = findNoteHeadCenter(img, spaceRadi);
 %radius = ones(size(centers, 1), 1)*3;
 %disp(size(centers));

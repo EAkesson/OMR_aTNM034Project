@@ -16,19 +16,24 @@ vertProj = sum(binImg, 1); %vertical proj
 %
 %morpholoogy do this
 imgRange = peaks(length(peaks))-sizeOfImgRange : peaks(length(peaks));
-%imshow(binImg(:, imgRange));
+%imshow(binImg);
 
 horzProj = sum(binImg(:, imgRange), 2); %horisontal proj
-disp(max(horzProj));
+%disp(max(horzProj));
 [junk, peaks] = findpeaks(horzProj, 'MinPeakHeight', 0.8*max(horzProj)); %
-firstLineYPos = peaks(1);
-lineHeight = (peaks(5) - firstLineYPos) * 0.25;
-
 
 %figure
 %plot(horzProj,1:size(binImg(:, peaks(length(peaks))-10:peaks(length(peaks))),1))
 %figure
 
+firstLineYPos = peaks(1);
+lineHeight = (peaks(5) - firstLineYPos) * 0.25;
+
+
+
+
+
+%%
 %img(peaks(1)-1:peaks(1)+1, :) = 1;
 %img(peaks(2)-1:peaks(2)+1, :) = 1;
 %img(peaks(3)-1:peaks(3)+1, :) = 1;
@@ -40,7 +45,6 @@ lineHeight = (peaks(5) - firstLineYPos) * 0.25;
 %imshow(imdilate(getBinImg(rgb2gray(img), 1), strel('sphere',1)))
 %imshow(imclose(getBinImg(rgb2gray(img), 1), strel('sphere',3)))
 
-
-  %figure
-  %imshow(lineimg);
+%figure
+%imshow(lineimg);
 

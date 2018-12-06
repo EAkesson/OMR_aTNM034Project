@@ -1,4 +1,4 @@
-function outImg = StaffLines(Im)
+function outImg = removeStaffLines(Im, noteHeadRadius)
 %% By using morphological operations the staff lines are deleted.
 %level = graythresh(rgb2gray(Im));
 %BW = im2bw(rgb2gray(Im),level);
@@ -12,23 +12,35 @@ BW = getBinImg(Img, 1);
 
 notes = imopen(imcomplement(Img), strel('disk',2));
 lines = imopen(imcomplement(Img), ones(3,1));
-linesBW = imopen(BW, ones(3,1));
 
-figure
-imshow(linesBW)
-figure
-imshow(lines)
+linesBW = imopen(BW, ones(round(noteHeadRadius),1));
+circular = imclose(linesBW, strel('disk', round(noteHeadRadius)));
 
-finished = lines;
-finished(finished < 0.3) = 0;
-figure
-imshow(finished);
-figure
-imshow(finished > 0.1);
-Tfinished = [finished, finished, finished];
-Im(Tfinished < 0.1) = 1;
-figure
-imshow(Im);
+
+%figure('name', 'lines')
+%imshow(linesBW)
+%figure('name', 'heads')
+%imshow(circular)
+
+%finished = linesBW;
+%disp('hi')
+%temppish = graythresh(imgaussfilt(imsharpen(finished)));
+%disp(temppish)
+%finished(finished < 0.1) = 0;
+
+Tfinished = [~linesBW, ~linesBW, ~linesBW];
+iis = Im;
+iis(Tfinished) = 1;
+figure('name', 'sup')
+imshow(iis);
+
+%Tfinished = [~circular, ~circular, ~circular];
+%iss = Im;
+%iss(Tfinished) = 1;
+%figure('name', 'yyu')
+%imshow(iss);
+
+outImg = iis;
 
 %outImg = 1;
 

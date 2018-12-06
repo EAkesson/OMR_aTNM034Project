@@ -15,7 +15,6 @@ Im = imsharpen(Im, 'Radius', 1.5, 'Amount', 1.1);
 figure
 imshow(Im)
 Im = HoughRotate(Im);
-
 imageRowArray = splitImageIntoRows(Im);
 
 %loop through all rowimages
@@ -24,7 +23,7 @@ imageRowArray = splitImageIntoRows(Im);
     [firstLineYPos, lineHeight] = getStafflineProperties(imageRowArray{rowIndex}); 
     
     %remove stafflines
-    imageRowArray{rowIndex} = StaffLines(imageRowArray{rowIndex});
+    imageRowArray{rowIndex} = removeStaffLines(imageRowArray{rowIndex}, lineHeight/2);
     
     %get note string from row
     rowProcessing(imageRowArray{rowIndex}, firstLineYPos, lineHeight);
