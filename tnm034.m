@@ -11,20 +11,23 @@ Im = im2double(Im);
 strout = '';
 
 % Your program code…
+Im = imsharpen(Im, 'Radius', 1.5, 'Amount', 1.1);
+figure
+imshow(Im)
 Im = HoughRotate(Im);
 
 imageRowArray = splitImageIntoRows(Im);
 
 %loop through all rowimages
-    
+    rowIndex = 1; 
     %findStafflineprop
-    [firstLineYPos, lineHeight] = getStafflineProperties(imageRowArray{1}); 
+    [firstLineYPos, lineHeight] = getStafflineProperties(imageRowArray{rowIndex}); 
     
     %remove stafflines
-    imageRowArray{1} = StaffLines(imageRowArray{1})
+    imageRowArray{rowIndex} = StaffLines(imageRowArray{rowIndex});
     
     %get note string from row
-    rowProcessing(imageRowArray{1}, firstLineYPos, lineHeight);
+    rowProcessing(imageRowArray{rowIndex}, firstLineYPos, lineHeight);
     
 %end
 %celebrate
