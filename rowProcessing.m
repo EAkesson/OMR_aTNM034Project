@@ -1,4 +1,4 @@
-function rowString = rowProcessing(img, firstLineYPos, lineHeight)
+function rowString = rowProcessing(img, staffLinesYPos, lineHeight)
 % rowProcessing(img)
 % This function process a row of notes and return them as a string of tones
 % according to document https://liuonline.sharepoint.com/sites/TNM034/TNM034_2018HT_OH/CourseDocuments/Forms/AllItems.aspx?viewpath=%2Fsites%2FTNM034%2FTNM034_2018HT_OH%2FCourseDocuments%2FForms%2FAllItems%2Easpx&id=%2Fsites%2FTNM034%2FTNM034_2018HT_OH%2FCourseDocuments%2FTNM034_Course_Information_2018%2Epdf&parent=%2Fsites%2FTNM034%2FTNM034_2018HT_OH%2FCourseDocuments
@@ -29,7 +29,7 @@ img = removeGClef(img);
 %viscircles(centers, radius,'EdgeColor','b');
 
 jump = 0;
-for i = 1:0%length(centers)    
+for i = 1:length(centers)    
   if(jump == 0)
       centers(i,1) = round(centers(i,1)); %To get rid of warning about intvalues
       
@@ -40,8 +40,8 @@ for i = 1:0%length(centers)
       %newCenter = findNoteHeadCenter(smallImg, spaceRadi);
       %[newCenter, junk] = findNoteheadsByHough(smallImg, [spaceRadi-1, spaceRadi+1], 0.5, 0);
       
-      [newCenter, junk] = findNoteheadsByHough(smallImg, [max(spaceRadi-radiiVariation, 1), spaceRadi], 0.3, 0);
-
+      %[newCenter, junk] = findNoteheadsByHough(smallImg, [max(spaceRadi-radiiVariation, 1), spaceRadi], 0.3, 0);
+      newCenter = [round(spaceRadi*3), centers(i, 2)];
       %viscircles(newCenter, junk,'EdgeColor','b');
       
       if(length(newCenter) == 0)
@@ -53,7 +53,7 @@ for i = 1:0%length(centers)
       disp(rythm)
       % get note name (returns note name)
       if(rythm > 0)          
-          noteName = getNoteName(newCenter(:,2), rythm, firstLineYPos, spaceRadi);
+          noteName = getNoteName(newCenter(:,2), rythm, staffLinesYPos, spaceRadi);
           rowString = strcat(rowString, noteName);
       end
           
@@ -62,8 +62,7 @@ for i = 1:0%length(centers)
       end
   else
       jump = jump-1;
-  end
-  
+  end  
 end
 
 disp(rowString)

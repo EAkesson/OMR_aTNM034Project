@@ -20,13 +20,13 @@ imageRowArray = splitImageIntoRows(Im);
 for rowIndex=1:length(imageRowArray)    
     %findStafflineprop
 
-    [firstLineYPos, lineHeight] = getStafflineProperties(imageRowArray{rowIndex}); 
+    [staffLinesYPos, lineHeight] = getStafflineProperties(imageRowArray{rowIndex}); 
     %disp(lineHeight)
     %remove stafflines    
     imageRowArray{rowIndex} = removeStaffLines(imageRowArray{rowIndex}, lineHeight/2);
     
     %get note string from row
-    rowProcessing(imageRowArray{rowIndex}, firstLineYPos, lineHeight);
+    rowProcessing(imageRowArray{rowIndex}, staffLinesYPos, lineHeight);
     
     
     %add rowchnge n

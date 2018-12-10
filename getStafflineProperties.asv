@@ -1,4 +1,4 @@
-function [stafflinesYpos, lineHeight] = getStafflineProperties(img)
+function [lineHeight, stafflinesYpos] = getStafflineProperties(img)
 
 sizeOfImgRange = 20; %pixels
 im = rgb2gray(img);
@@ -24,13 +24,25 @@ horzProj = sum(binImg(:, imgRange), 2); %horisontal proj
 %disp(max(horzProj));
 [junk, peaks] = findpeaks(horzProj, 'MinPeakHeight', 0.8*max(horzProj)); %find where stafflines start and end
 
-
+<<<<<<< HEAD
 %figure
 %plot(horzProj,1:size(binImg(:, peaks(length(peaks))-10:peaks(length(peaks))),1))
+%figure
+
+firstLineYPos = peaks(length(peaks));
+lineHeight = (firstLineYPos - peaks(length(peaks)-4)) * 0.25;
+=======
+figure
+plot(horzProj,1:size(binImg(:, peaks(length(peaks))-10:peaks(length(peaks))),1))
 
 %firstLineYPos = peaks(length(peaks)); % lowest staffline
 stafflinesYpos =  peaks( length(peaks)-4 : length(peaks) ); % all staffline positions (stafflinesYpos(5) = lowest)
 lineHeight = (stafflinesYpos(5) - stafflinesYpos(1)) * 0.25; %average height for each space
+
+
+>>>>>>> 4bba1a7c0832e64da88f494296141776499e0ee7
+
+
 
 
 
