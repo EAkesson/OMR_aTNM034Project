@@ -11,17 +11,17 @@ function rythm = getNoteRythm(smallImg, noteHeadPos, spaceRadi)
 
 %If the notehead has a hole inside of it (whole or halfnote)
 if(smallImg(round(noteHeadPos(1,2)), round(noteHeadPos(1,1))) == 1) 
-   rythm = '0';
+   rythm = 0;
    return;
 end
     
 beamImg = flagsAndBeamsDetection(smallImg, noteHeadPos, spaceRadi);
 
-%figure
-%imshow(beamImg);
+figure
+imshow(beamImg);
 
 if(max(max(beamImg))==0)
-   rythm = '4';
+   rythm = 4;
    return;
 end
 
@@ -33,8 +33,8 @@ right = numel(findpeaks(double(1 * rightColumn)));
 
 numOfBeams = max([left,right]);
 if(numOfBeams==1)
-   rythm = '8';
+   rythm = 8;
    return;
 end
 
-rythm = '0'; %Higher speed than 8
+rythm = 0; %Higher speed than 8
