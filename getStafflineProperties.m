@@ -15,8 +15,9 @@ vertProj = sum(binImg, 1); %vertical proj
 %lineimg = imopen(getBinImg(im, 1),se);
 %
 %morpholoogy do this
+
 imgRange = peaks(length(peaks))-sizeOfImgRange : peaks(length(peaks));
-imshow(binImg(:, imgRange));
+%imshow(binImg(:, imgRange));
 
 horzProj = sum(binImg(:, imgRange), 2); %horisontal proj
 %disp(max(horzProj));
@@ -24,10 +25,10 @@ horzProj = sum(binImg(:, imgRange), 2); %horisontal proj
 
 %figure
 %plot(horzProj,1:size(binImg(:, peaks(length(peaks))-10:peaks(length(peaks))),1))
-figure
+%figure
 
-firstLineYPos = peaks(length(peaks)-4);
-lineHeight = (peaks(length(peaks)) - firstLineYPos) * 0.25;
+firstLineYPos = peaks(length(peaks));
+lineHeight = (firstLineYPos - peaks(length(peaks)-4)) * 0.25;
 
 
 

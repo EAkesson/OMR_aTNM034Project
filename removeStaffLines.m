@@ -40,7 +40,7 @@ Tfinished = [~circular, ~circular, ~circular];
 iss = Im;
 iss(Tfinished) = 1;
 %figure('name', 'yyu')
-imshow(iss);
+%imshow(iss);
 %figure('name', 'yyuclose')
 %imshow(imcomplement(imclose(imcomplement(iss), strel('disk', round(noteHeadRadius-1)))));
 

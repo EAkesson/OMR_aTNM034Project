@@ -14,17 +14,17 @@ binNoteImg = getBinImg(noteImg, 1);
 
 % Perform opening operation 
 %noteHeadImg = imopen(noteImg, se);
-figure('name', 'this')
-imshow(binNoteImg)
+%figure('name', 'this')
+%imshow(binNoteImg)
 
-figure('name', 'hiy')
+%figure('name', 'hiy')
 lines = imclose(binNoteImg, ones(round(r*2), 5));
-imshow(lines)
-figure
+%imshow(lines)
+%figure
 lines = imopen(lines, ones(round(r*5), 5));
-imshow(lines)
+%imshow(lines)
 binNoteImg(lines) = 0;
-figure('name', 'hsdfdsfiy')
-imshow(binNoteImg)
+%figure('name', 'hsdfdsfiy')
+%imshow(binNoteImg)
 noteHeadImg =  binNoteImg;
 

@@ -22,34 +22,37 @@ img = removeGClef(img);
 % Find noteheads and get thier pos
 
 
-[centers, radius] = findNoteheadsByHough(img, [max(spaceRadi-radiiVariation, 1), spaceRadi+radiiVariation], 0.3, 1);
+[centers, radius] = findNoteheadsByHough(img, [max(spaceRadi-radiiVariation, 1), spaceRadi+radiiVariation], 0.5, 1);
 %centers = findNoteHeadCenter(img, spaceRadi);
 %radius = ones(size(centers, 1), 1)*3;
 %disp(size(centers));
-viscircles(centers, radius,'EdgeColor','b');
+%viscircles(centers, radius,'EdgeColor','b');
 
 jump = 0;
-newCenter=[]
-for i = 1:length(centers)
-    disp('huhuhus')
+for i = 1:0%length(centers)    
   if(jump == 0)
-      centers(i,1) = round(centers(i,1));%To get rid of warning about intvalues
-      smallImg = img( 1:size(img,1), centers(i,1) - (spaceRadi*3) : centers(i,1) + (spaceRadi*3));
+      centers(i,1) = round(centers(i,1)); %To get rid of warning about intvalues
+      
+      smallImg = img( 1:size(img,1), centers(i,1) - round(spaceRadi*3) : centers(i,1) + round(spaceRadi*3));
       %figure
       %imshow(smallImg);  
 
       %newCenter = findNoteHeadCenter(smallImg, spaceRadi);
       %[newCenter, junk] = findNoteheadsByHough(smallImg, [spaceRadi-1, spaceRadi+1], 0.5, 0);
-      %[newCenter, junk] = findNoteheadsByHough(smallImg, [max(spaceRadi-radiiVariation, 1), spaceRadi+radiiVariation], 0.3, 1);
+      
+      [newCenter, junk] = findNoteheadsByHough(smallImg, [max(spaceRadi-radiiVariation, 1), spaceRadi], 0.3, 0);
 
+      %viscircles(newCenter, junk,'EdgeColor','b');
+      
       if(length(newCenter) == 0)
         continue
       end
       % get note rythm (returns 0, 4 or 8)
       rythm = getNoteRythm(smallImg, newCenter, spaceRadi);
-
+      
+      disp(rythm)
       % get note name (returns note name)
-      if(1)%rythm ~= 0)
+      if(rythm > 0)          
           noteName = getNoteName(newCenter(:,2), rythm, firstLineYPos, spaceRadi);
           rowString = strcat(rowString, noteName);
       end
@@ -57,13 +60,6 @@ for i = 1:length(centers)
       if(size(newCenter, 1) > 1)
           jump = size(newCenter, 1) - 1;
       end
-
-    %   disp(centers(i, :));
-    %   disp(fiftyCent);
-    %   if(length(fiftyCent) > 1)
-    %       i =+ 1;
-    %       disp('heeeyyo');
-    %   end
   else
       jump = jump-1;
   end

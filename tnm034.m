@@ -15,14 +15,14 @@ Im = imsharpen(Im, 'Radius', 1.5, 'Amount', 1.1);
 Im = HoughRotate(Im);
 
 imageRowArray = splitImageIntoRows(Im);
-
 %loop through all rowimages
-rowIndex = 1; 
-%for rowIndex=1:length(imageRowArray)    
+%rowIndex = 1; 
+for rowIndex=1:length(imageRowArray)    
     %findStafflineprop
+
     [firstLineYPos, lineHeight] = getStafflineProperties(imageRowArray{rowIndex}); 
-    disp(lineHeight)
-    %remove stafflines
+    %disp(lineHeight)
+    %remove stafflines    
     imageRowArray{rowIndex} = removeStaffLines(imageRowArray{rowIndex}, lineHeight/2);
     
     %get note string from row
@@ -30,7 +30,7 @@ rowIndex = 1;
     
     
     %add rowchnge n
-%end
+end
 %celebrate
 strout =  'Something that is returned from a function';
 %%%%%%%%%%%%%%%%%%%%%%%%%%
