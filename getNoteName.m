@@ -14,15 +14,26 @@ function noteName = getNoteName(centerYPos, rythm, stafflineYpos, spaceRadi)
     firstLineArrayIndex = 6;  
    
     for j=1:length(centerYPos)
-        % Calculate distance between lowest staff line and note center.
-        distanceFromFirstLine = firstLineYPos - centerYPos(j);
-    
-        % Use note head radius to calculate index. 
-        noteIndex = firstLineArrayIndex + round(distanceFromFirstLine/spaceRadi);        
-        %if(noteIndex < 1 || noteIndex > length(noteNameArray))
-        %    noteName = strcat(noteName,'E9');
-        %    return
-        %end
+       
+        %if note is below stafflines
+        if(centerYPos > stafflineYpos(5))
+             % Calculate distance between lowest staff line and note center.
+             distanceFromLowestLine = centerYPos(j) - firstLineYPos(5);
+             % Use note head radius to calculate index. 
+             noteIndex = firstLineArrayIndex + 8 + round(distanceFromLowestLine/spaceRadi);     
+        
+        %if note is above stafflines
+        elseif(centerYPos < stafflineYpos(1))
+            % Calculate distance between lowest staff line and note center.
+            distanceFromHighestLine = firstLineYPos(1) - centerYPos(j);
+            % Use note head radius to calculate index. 
+            noteIndex = firstLineArrayIndex - round(distanceFromHighestLine/spaceRadi); 
+             
+        %if note is in stafflines range
+        else
+            
+        end
+        
         % Return name from calculated index position.        
         noteName = strcat(noteName,noteNameArray(noteIndex));
     end
