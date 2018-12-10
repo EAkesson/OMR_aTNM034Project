@@ -26,11 +26,14 @@ for rowIndex=1:length(imageRowArray)
     imageRowArray{rowIndex} = removeStaffLines(imageRowArray{rowIndex}, lineHeight/2);
     
     %get note string from row
-    rowProcessing(imageRowArray{rowIndex}, staffLinesYPos, lineHeight);
-    
+    strout = strcat(strout, rowProcessing(imageRowArray{rowIndex}, staffLinesYPos, lineHeight));
     
     %add rowchnge n
+    if(rowIndex ~= length(imageRowArray))
+        strout = strcat(strout, 'n');
+    end
 end
+disp(strout);
 %celebrate
-strout =  'Something that is returned from a function';
+%strout =  'Something that is returned from a function';
 %%%%%%%%%%%%%%%%%%%%%%%%%%
