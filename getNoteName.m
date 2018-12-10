@@ -1,4 +1,4 @@
-function noteName = getNoteName(centerYPos, rythm, firstLineYPos, spaceRadi)
+function noteName = getNoteName(centerYPos, rythm, stafflineYpos, spaceRadi)
     
     %init var
     if(rythm == 4)
