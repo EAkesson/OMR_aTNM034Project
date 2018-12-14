@@ -15,4 +15,4 @@ img = imread('Images_Training/easy/im1s.jpg');
 
 
 %Do tnm034...
-tnm034(img);
+tnm034(img)

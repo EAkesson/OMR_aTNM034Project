@@ -17,14 +17,14 @@ binNoteImg = getBinImg(noteImg, 1);
 %figure('name', 'this')
 %imshow(binNoteImg)
 
-figure('name', 'hiy')
+%figure('name', 'hiy')
 lines = imclose(binNoteImg, ones(round(r*2), 5)); %Make everything thicker
-imshow(lines)
-figure
+%imshow(lines)
+%figure
 lines = imopen(lines, ones(round(r*5), 5)); %Only find the vertical lines
-imshow(lines)
+%imshow(lines)
 binNoteImg(lines) = 0; %Remove the lines
-figure('name', 'hsdfdsfiy')
-imshow(binNoteImg)
+%figure('name', 'hsdfdsfiy')
+%imshow(binNoteImg)
 noteHeadImg =  binNoteImg;
 
