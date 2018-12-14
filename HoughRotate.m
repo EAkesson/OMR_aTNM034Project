@@ -1,4 +1,12 @@
 function outImage = HoughRotate(Im)
+%   HoughRotate(Im)
+%   This function rotates an image if it is not completely straight. It
+%   only works for smal rotations 5 degrees
+%
+%   Im = the image that should be rotated
+%
+%   outImage = the rotated image
+
 
 % Read RGB-image and convert to binary image
 BW = edge(rgb2gray(Im),'canny');
@@ -36,10 +44,10 @@ normPeaks = (normPeaks .* thetaRange) + min(range);
 rotationAngles_2 = max(range)-normPeaks;
 
 if(mean(rotationAngles_2) > mean(rotationAngles_1))
-    Im1 = imrotate(Im,-mean(rotationAngles_1), 'bicubic');
+    Im1 = imrotate(Im,-mean(rotationAngles_1), 'bicubic'); %rotate the after what the hough transform give
     Mrot = ~imrotate(true(size(Im)),-mean(rotationAngles_1)); %to make the clipping background white instead of black
 else
-    Im1 = imrotate(Im,mean(rotationAngles_1), 'bicubic');
+    Im1 = imrotate(Im,mean(rotationAngles_1), 'bicubic'); %rotate the after what the hough transform give
     Mrot = ~imrotate(true(size(Im)),mean(rotationAngles_1)); %to make the clipping background white instead of black
 end
 
@@ -50,7 +58,7 @@ Im1(size(Im1,1)-3:size(Im1,1),:,:) = 1; %make the edge white to remove black
 Im1(:,1:3,:) = 1; %make the edge white to remove black
 Im1(:,size(Im1,2)-3:size(Im1,2),:) = 1; %make the edge white to remove black
 
-outImage = Im1;
+outImage = Im1; %Set image to the output
 
 end
 

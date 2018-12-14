@@ -1,5 +1,11 @@
 function imgArray = splitImageIntoRows(im)
-
+%   splitImageIntoRows(im)
+%   This function split an image with several noterows to serveral images
+%   with only one row per image
+%
+%   im = input iamage
+%
+%   imgArray = an array with serveral images ith one row in each image
 
 
 img = rgb2gray(im);
@@ -27,10 +33,7 @@ for i=1:length(posToCut)-1
     %disp(max(horzProjMax(posToCut(i):posToCut(i+1))));
     if(maxValue*0.6 < max(horzProjMax(posToCut(i):posToCut(i+1)))) %Only save image if it has a value of 60% of maximumvalue (for a row)       
         imgArray{z} = im(posToCut(i):posToCut(i+1),:, :); %Store imagerow i the imgarray
-        z=z+1;        
-    else        
-        %figure
-        %imshow(horzProjMax(posToCut(i):posToCut(i+1),:, :))
+        z=z+1;           
     end       
 end 
 

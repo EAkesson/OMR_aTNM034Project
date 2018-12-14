@@ -16,17 +16,19 @@ function flagAndBeamImg = flagsAndBeamsDetection(smallImg, noteHeadPos, spaceRad
   %figure
   %imshow(Ssmallimg)
   
-  noteHeadPos(:,2) = round(noteHeadPos(:,2)); %To get rid of warning about intvalues
+  %noteHeadPos(:,2) = round(noteHeadPos(:,2)); %To get rid of warning about intvalues
   %disp(noteHeadPos(:,2))
-  %Remove heads  
-  for EE = 1:size(noteHeadPos, 1)
-    smallImg(noteHeadPos(EE,2)-spaceRadi*2:noteHeadPos(EE,2)+spaceRadi*2, 1:size(smallImg,2)) = 1;
+  
+  %Remove heads by just remove an area around the center of the head  
+  for noteHeads = 1:size(noteHeadPos, 1)
+    smallImg(noteHeadPos(noteHeads,2)-spaceRadi*2:noteHeadPos(noteHeads,2)+spaceRadi*2, 1:size(smallImg,2)) = 1;
   end  
   
-  %remove barline
+  %remove barline with morfologen
   se = strel('line', spaceRadi*2, 0);
   % Perform opening operation 
   flagAndBeamImg = imopen(getBinImg(smallImg, 1),se);
+  flagAndBeamImg = imclose(flagAndBeamImg, se);
   
   %figure
   %imshow(flagAndBeamImg);

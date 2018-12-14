@@ -1,21 +1,26 @@
 function outImg = removeStaffLines(Im, noteHeadRadius)
-%% By using morphological operations the staff lines are deleted.
+%   removeStaffLines(Im, noteHeadRadius)
+%   This function removes the stafflines. This is done with morphology
+%
+%   Im = The image stafflines should be removed on
+%   noteHeadRadius = The radious of the notehead
+%
+%   outImg = teh result image without stafflines
+%
+
 %level = graythresh(rgb2gray(Im));
 %BW = im2bw(rgb2gray(Im),level);
 %BW = imcomplement(BW);
 
 Img = rgb2gray(Im);
 BW = getBinImg(Img, 1);
-%BW = edge(getBinImg(Img, 1), 'canny');
-%imshow(BW)
 
+%notes = imopen(imcomplement(Img), strel('disk',2));
+%lines = imopen(imcomplement(Img), ones(3,1));
 
-notes = imopen(imcomplement(Img), strel('disk',2));
-lines = imopen(imcomplement(Img), ones(3,1));
-
-linesBW = imopen(BW, ones(round(noteHeadRadius),1));
-circular = imclose(linesBW, ones(1,4));
-
+linesBW = imopen(BW, ones(round(noteHeadRadius),1)); %Remove the Stafflines and other lines that is horisontal
+circular = imclose(linesBW, ones(1,4)); %Fill the gaps from the removed lines
+%After these two operations, everything except stafflines should be left
 
 %figure('name', 'lines')
 %imshow(linesBW)
@@ -28,39 +33,23 @@ circular = imclose(linesBW, ones(1,4));
 %disp(temppish)
 %finished(finished < 0.1) = 0;
 
-Tfinished = [~linesBW, ~linesBW, ~linesBW];
-iis = Im;
-iis(Tfinished) = 1;
+%ThingsToRemove = [~linesBW, ~linesBW, ~linesBW];
+%iis = Im;
+%iis(ThingsToRemove) = 1;
 %figure('name', 'sup')
 %imshow(iis);
 %figure('name', 'supclose')
 %imshow(imcomplement(imclose(imcomplement(iis), strel('disk', round(1)))));
 
-Tfinished = [~circular, ~circular, ~circular];
-iss = Im;
-iss(Tfinished) = 1;
+%Make an image oposite of what we got image so we can remove the stafflines from orginal image
+ThingsToRemove = [~circular, ~circular, ~circular]; 
+imageWithoutStafflines = Im; 
+imageWithoutStafflines(ThingsToRemove) = 1;
+
 %figure('name', 'yyu')
 %imshow(iss);
 %figure('name', 'yyuclose')
 %imshow(imcomplement(imclose(imcomplement(iss), strel('disk', round(noteHeadRadius-1)))));
 
-outImg = iss;
-
-%%
-%[H, T, R] = hough(BW);
-%P = houghpeaks(H, 100, 'threshold', ceil(0.3*max(H(:))));
-%lines = houghlines(BW, T, R, P, 'FillGap', 5, 'Minlength', 7);
-%max_len = 0;
-
-%for k = 1:length(lines)
-%   xy = [lines(k).point1; lines(k).point2];
-%   plot(xy(:,1),xy(:,2),'LineWidth',2,'Color','green');
-
-   % Plot beginnings and ends of lines
-   %plot(xy(1,1),xy(1,2),'x','LineWidth',2,'Color','yellow');
-   %plot(xy(2,1),xy(2,2),'x','LineWidth',2,'Color','red');
-
-%end
-
-
+outImg = imageWithoutStafflines;
 end

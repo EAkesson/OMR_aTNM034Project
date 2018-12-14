@@ -10,30 +10,31 @@ function strout = tnm034(Im)
 Im = im2double(Im);
 strout = '';
 
-% Your program code…
+% Sharpen the image a bit
 Im = imsharpen(Im, 'Radius', 1.5, 'Amount', 1.1);
+%Strighten up the image
 Im = HoughRotate(Im);
 
+%split the image to several images with one row in each
 imageRowArray = splitImageIntoRows(Im);
+
 %loop through all rowimages
-%rowIndex = 1; 
 for rowIndex=1:length(imageRowArray)    
     %findStafflineprop
-
     [staffLinesYPos, lineHeight] = getStafflineProperties(imageRowArray{rowIndex}); 
-    %disp(lineHeight)
+        
     %remove stafflines    
     imageRowArray{rowIndex} = removeStaffLines(imageRowArray{rowIndex}, lineHeight/2);
     
-    %get note string from row
+    %get note string from one row
     strout = strcat(strout, rowProcessing(imageRowArray{rowIndex}, staffLinesYPos, lineHeight));
     
-    %add rowchnge n
+    %add rowchange 'n' (not one last image change)
     if(rowIndex ~= length(imageRowArray))
         strout = strcat(strout, 'n');
     end
 end
-disp(strout);
+%disp(strout);
 %celebrate
-%strout =  'Something that is returned from a function';
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%

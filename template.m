@@ -1,17 +1,10 @@
 function objPos =  template(binImg, templateImg)
 %   template(binImg, templateImg)
-%   img: the image we want to search in. Should be logical and bw
+%   binImg: the image we want to search in. Should be logical and bw
 %   templateImg: the img we want to search for. Should be logical and bw
 %
 %   return: objPos the topleft corner of the find object. Only returns the
-%   most alike object at the moment. 
-    
-    % Read template image
-%     templateNote = rgb2gray(templateImg);
-%     templateNote = getBinImg(templateNote, 1);
-%     
-%     % Convert original image to binary
-%     binImg = getBinImg(img, 1);
+%   most alike object at the moment.        
 
     % Search for correlations between template and original
     corr = normxcorr2(templateImg,binImg);
@@ -29,6 +22,7 @@ function objPos =  template(binImg, templateImg)
     yoffSet = ypeaks-size(templateImg,1);
     xoffSet = xpeaks-size(templateImg,2);
     objPos = [yoffSet, xoffSet];
+    
     % Show result as circles on original image
 %     figure
 %      imshow(binImg);

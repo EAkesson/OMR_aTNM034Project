@@ -1,4 +1,5 @@
 function detectNote(img)
+%% Not used atm
 %% Fix image
 %imshow(img);
 %figure;

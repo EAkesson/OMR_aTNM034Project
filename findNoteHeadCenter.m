@@ -18,5 +18,5 @@ centroids = cat(1, s.Centroid);
 % Test
 %figure
 %imshow(noteHeadImg,[]);
-viscircles([centroids(1,1), centroids(1,2)], 1, 'EdgeColor', 'b')
+%viscircles([centroids(1,1), centroids(1,2)], 1, 'EdgeColor', 'b')
 %disp(centroids);
